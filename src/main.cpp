@@ -88,9 +88,23 @@ void loop() {
   // Test accelerometer
   if (Yboard.accelerometer_available()) {
     accelerometer_data accel_data = Yboard.get_accelerometer();
-    Yboard.set_led_color(6, map(accel_data.x, -1000, 1000, 0, 255), 0, 0);
-    Yboard.set_led_color(7, 0, map(accel_data.y, -1000, 1000, 0, 255), 0);
-    Yboard.set_led_color(8, 0, 0, map(accel_data.z, -1000, 1000, 0, 255));
+    int x = accel_data.x;
+    int y = accel_data.y;
+    int z = accel_data.z;
+    if (x < 0)
+      Yboard.set_led_color(6, map(x, 0, -1000, 0, 255), 0, 0);
+    else
+      Yboard.set_led_color(6, 0, map(x, 0, 1000, 0, 255), map(x, 0, 1000, 0, 255));
+    
+    if (y < 0)
+      Yboard.set_led_color(7, 0, map(y, 0, -1000, 0, 255), 0);
+    else
+      Yboard.set_led_color(7, map(y, 0, 1000, 0, 255), 0, map(y, 0, 1000, 0, 255));
+
+    if (z <0)
+      Yboard.set_led_color(8, 0, 0, map(z, 0, -1000, 0, 255));
+    else
+      Yboard.set_led_color(8, map(z, 0, 1000, 0, 255), map(z, 0, 1000, 0, 255), 0);
 
     uint8_t text_size = 1;
     display.setTextSize(text_size);
