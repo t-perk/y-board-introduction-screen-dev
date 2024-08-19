@@ -108,16 +108,18 @@ void loop() {
   int tmp = (int)(temp_data.temperature * 1000);
   display.printf("T = %+#.2f C", temp_data.temperature);
   if (temp_data.temperature > 39) // Gradually adjust LED color to indicate temp
+  {
     Yboard.set_led_color(9, 255, 0, 0);
-  else if (temp_data.temperature < 0)
+  } else if (temp_data.temperature < 0) {
     Yboard.set_led_color(9, 0, 255, 255);
-  else if (temp_data.temperature < 18)
+  } else if (temp_data.temperature < 18) {
     Yboard.set_led_color(9, map(tmp, 0, 18000, 0, 255), 255, 255);
-  else if (temp_data.temperature < 24)
+  } else if (temp_data.temperature < 24) {
     Yboard.set_led_color(9, 255, map(tmp, 18000, 24000, 255, 128),
                          map(tmp, 18000, 24000, 255, 0));
-  else
+  } else {
     Yboard.set_led_color(9, 255, map(tmp, 24000, 39000, 128, 0), 0);
+  }
   display.setCursor(52, 30);
   display.print("H_rel = N/A"); // Humidity not working
 
