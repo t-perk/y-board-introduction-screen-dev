@@ -32,7 +32,7 @@ void setup() {
   display.setTextColor(1);
   display.setRotation(ZERO_DEG); // Can be 0, 90, 180, or 270
   display.setTextWrap(false);
-  display.dim(BRIGHTNESS_DAMPER);
+  // display.dim(BRIGHTNESS_DAMPER); // Causes some screens to fail
   display.display();
 }
 
@@ -91,6 +91,25 @@ void loop() {
     int x = accel_data.x;
     int y = accel_data.y;
     int z = accel_data.z;
+
+    if (x > 1000) {
+      x = 1000;
+    } else if (x < -1000) {
+      x = -1000;
+    }
+
+    if (y > 1000) {
+      y = 1000;
+    } else if (y < -1000) {
+      y = -1000;
+    }
+
+    if (z > 1000) {
+      z = 1000;
+    } else if (z < -1000) {
+      z = -1000;
+    }
+
     if (x < 0) {
       Yboard.set_led_color(6, map(x, 0, -1000, 0, 255), 0, 0);
     } else {
@@ -99,17 +118,17 @@ void loop() {
     }
 
     if (y < 0) {
-      Yboard.set_led_color(7, 0, map(y, 0, -1000, 0, 255), 0);
+      Yboard.set_led_color(7, map(y, 0, -1000, 0, 255), 0,
+                           map(y, 0, -1000, 0, 255));
     } else {
-      Yboard.set_led_color(7, map(y, 0, 1000, 0, 255), 0,
-                           map(y, 0, 1000, 0, 255));
+      Yboard.set_led_color(7, 0, map(y, 0, 1000, 0, 255), 0);
     }
 
     if (z < 0) {
-      Yboard.set_led_color(8, 0, 0, map(z, 0, -1000, 0, 255));
+      Yboard.set_led_color(8, map(z, 0, -1000, 0, 255),
+                           map(z, 0, -1000, 0, 255), 0);
     } else {
-      Yboard.set_led_color(8, map(z, 0, 1000, 0, 255), map(z, 0, 1000, 0, 255),
-                           0);
+      Yboard.set_led_color(8, 0, 0, map(z, 0, 1000, 0, 255));
     }
 
     uint8_t text_size = 1;
