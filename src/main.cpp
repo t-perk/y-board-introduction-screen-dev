@@ -22,7 +22,7 @@ void setup() {
   Yboard.setup();
 
   // test speaker
-  Yboard.play_notes("D C#8 D C8 D8 B8 G8< F<"); // Play fight song
+  Yboard.play_notes("O5 F D. C#8 D. C#8 D8 B8- O4 G8 F"); // Play fight song
 
   // Display setup
   delay(1000); // Display needs time to initialize
@@ -32,7 +32,6 @@ void setup() {
   display.setTextColor(1);
   display.setRotation(ZERO_DEG); // Can be 0, 90, 180, or 270
   display.setTextWrap(false);
-  // display.dim(BRIGHTNESS_DAMPER); // Causes some screens to fail
   display.display();
 }
 
